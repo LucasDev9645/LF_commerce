@@ -1,0 +1,32 @@
+.dsc-card {
+  background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #d9d9d9;
+}
+
+.dsc-catalog-card-top {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.dsc-catalog-card-top img {
+  width: 150px;
+  height: 150px;
+}
+
+.dsc-catalog-card-bottom {
+  border-top: 1px solid #c6c6c6;
+  padding: 10px 20px;
+  min-height: 110px;
+}
+
+.dsc-catalog-card-bottom h3 {
+  color: var(--dsc-color-font-secondary);
+  font-size: 20px;
+}
+
+.dsc-catalog-card-bottom h4 {
+  color: var(--dsc-color-font-primary);
+  font-size: 12px;
+}

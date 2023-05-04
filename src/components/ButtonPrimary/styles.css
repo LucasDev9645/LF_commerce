@@ -1,0 +1,6 @@
+.dsc-btn-blue {
+  max-width: 220px;
+  border: none;
+  background-color: var(--dsc-color-btn-primary);
+  color: var(--dsc-color-btn-inverse);
+}
