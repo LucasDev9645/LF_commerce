@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import Catalog from "./routes/ClientHome/Catalog";
 import ProductDetails from "./routes/ProductDetails";
@@ -16,6 +16,7 @@ const App = () => {
             element={<ProductDetails />}
           />
         </Route>
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
