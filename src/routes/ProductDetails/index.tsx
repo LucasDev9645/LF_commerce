@@ -1,5 +1,4 @@
 import CardProduct from "../../components/CardProduct";
-import HeaderClient from "../../components/HeaderClient";
 import { ProductDTO } from "../../models/product";
 
 import "./style.css";
@@ -28,12 +27,7 @@ const product: ProductDTO = {
 };
 
 const ProductDetails = () => {
-  return (
-    <>
-      <HeaderClient />
-      <CardProduct product={product} />
-    </>
-  );
+  return <CardProduct product={product} />;
 };
 
 export default ProductDetails;
