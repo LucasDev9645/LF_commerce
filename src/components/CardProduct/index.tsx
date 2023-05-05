@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import CategoryProduct from "../CategoryProduct";
 import ButtonPrimary from "../ButtonPrimary";
 import ButtonInverse from "../ButtonInverse";
@@ -32,7 +34,9 @@ const CardProduct = ({ product }: Props) => {
         </div>
         <div className="dsc-btn-page-container">
           <ButtonPrimary name="Adicionar" />
-          <ButtonInverse name="Inicio" />
+          <Link to="/">
+            <ButtonInverse name="Inicio" />
+          </Link>
         </div>
       </section>
     </>
