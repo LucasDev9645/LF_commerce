@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import CardProduct from "../../components/CardProduct";
@@ -9,7 +10,14 @@ import "./style.css";
 const ProductDetails = () => {
   const params = useParams();
 
-  const product = productService.findById(Number(params.productId));
+  const [product, setProduct] = useState<ProductDTO>();
+
+  useEffect(() => {
+    productService
+      .findById(Number(params.productId))
+      .then((response) => setProduct(response.data))
+      .catch((error) => console.log("ERRO", error));
+  }, []);
 
   return <div>{product && <CardProduct product={product} />}</div>;
 };

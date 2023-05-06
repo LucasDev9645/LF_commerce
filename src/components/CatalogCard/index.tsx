@@ -18,7 +18,6 @@ const CatalogCard = ({ product }: Props) => {
         <div className="dsc-catalog-card-bottom">
           <h3>R$ {product.price.toFixed(2)}</h3>
           <h5>{product.name}</h5>
-          <p>{product.description}</p>
         </div>
       </div>
     </Link>
