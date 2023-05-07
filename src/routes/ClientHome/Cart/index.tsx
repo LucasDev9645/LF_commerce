@@ -1,82 +1,65 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import * as cartService from "../../../services/cart-service";
+import { OrderDTO } from "../../../models/order";
 
 import "./style.css";
-import { OrderDTO, OrderItemDTO } from "../../../models/order";
-
-const item1: OrderItemDTO = new OrderItemDTO(
-  4,
-  1,
-  "The Lord of the Rings",
-  90.5,
-  "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg"
-);
-
-const item2: OrderItemDTO = new OrderItemDTO(
-  5,
-  2,
-  "Smart TV",
-  2190.0,
-  "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg"
-);
-
-// const cart: OrderDTO = new OrderDTO
-
-const cart = {
-  items: [
-    {
-      productId: 4,
-      quantity: 1,
-      name: "The Lord of the Rings",
-      price: 90.5,
-      imgUrl:
-        "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg",
-    },
-    {
-      productId: 5,
-      quantity: 2,
-      name: "Smart TV",
-      price: 2190.0,
-      imgUrl:
-        "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg",
-    },
-  ],
-};
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, setCart] = useState<OrderDTO>(cartService.getCart());
 
+  const handleClearClick = () => {
+    cartService.clearCart();
+    setCart(cartService.getCart());
+  };
+
   return (
     <main>
       <section id="cart-container-section" className="dsc-container">
-        <div className="dsc-card dsc-mb20">
-          {cart.items.map((product) => (
-            <div
-              key={product.productId}
-              className="dsc-cart-item-container dsc-line-bottom"
-            >
-              <div className="dsc-cart-item-left">
-                <img src={product.imgUrl} alt="Computador" />
-                <div className="dsc-cart-item-description">
-                  <h3>{product.name}</h3>
-                  <div className="dsc-cart-item-quantity-container">
-                    <div className="dsc-cart-item-quantity-btn">-</div>
-                    <p>{product.quantity}</p>
-                    <div className="dsc-cart-item-quantity-btn">+</div>
+        {cart.items.length === 0 ? (
+          <div>
+            <h2 className="dsc-section-title dsc-mb20">
+              Seu carrinho está vazio!
+            </h2>
+          </div>
+        ) : (
+          <div className="dsc-card dsc-mb20">
+            {cart.items.map((product) => (
+              <div
+                key={product.productId}
+                className="dsc-cart-item-container dsc-line-bottom"
+              >
+                <div className="dsc-cart-item-left">
+                  <img src={product.imgUrl} alt="Computador" />
+                  <div className="dsc-cart-item-description">
+                    <h3>{product.name}</h3>
+                    <div className="dsc-cart-item-quantity-container">
+                      <div className="dsc-cart-item-quantity-btn">-</div>
+                      <p>{product.quantity}</p>
+                      <div className="dsc-cart-item-quantity-btn">+</div>
+                    </div>
                   </div>
                 </div>
+                <div className="dsc-cart-item-right">
+                  R$ {product.subTotal.toFixed(2)}
+                </div>
               </div>
-              <div className="dsc-cart-item-right">{product.price}</div>
+            ))}
+            <div className="dsc-cart-total-container">
+              <h3>R$ {cart.total.toFixed(2)}</h3>
             </div>
-          ))}
-          <div className="dsc-cart-total-container">
-            <h3>R$ 15000,00</h3>
           </div>
-        </div>
+        )}
+
         <div className="dsc-btn-page-container">
           <div className="dsc-btn dsc-btn-blue">Finalizar pedido</div>
-          <div className="dsc-btn dsc-btn-white">Continuar comprando</div>
+          <Link to="/catalog">
+            <div className="dsc-btn dsc-btn-white">Continuar comprando</div>
+          </Link>
+          <div onClick={handleClearClick} className="dsc-btn dsc-btn-white">
+            Limpar carrinho
+          </div>
         </div>
       </section>
     </main>

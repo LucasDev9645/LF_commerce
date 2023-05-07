@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import CategoryProduct from "../CategoryProduct";
 import ButtonPrimary from "../ButtonPrimary";
 import ButtonInverse from "../ButtonInverse";
 import { ProductDTO } from "../../models/product";
-
-import computer from "../../assets/img/computer.png";
+import * as cartService from "../../services/cart-service";
 
 import "./styles.css";
 
@@ -14,6 +13,13 @@ type Props = {
 };
 
 const CardProduct = ({ product }: Props) => {
+  const navigate = useNavigate();
+
+  const handleBuyClick = () => {
+    cartService.addProduct(product);
+    navigate("/cart");
+  };
+
   return (
     <>
       <section id="product-details-section" className="dsc-container">
@@ -33,7 +39,9 @@ const CardProduct = ({ product }: Props) => {
           </div>
         </div>
         <div className="dsc-btn-page-container">
-          <ButtonPrimary name="Comprar" />
+          <div onClick={handleBuyClick}>
+            <ButtonPrimary name="Comprar" />
+          </div>
           <Link to="/">
             <ButtonInverse name="Inicio" />
           </Link>
