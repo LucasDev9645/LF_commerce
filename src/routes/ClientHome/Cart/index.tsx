@@ -1,6 +1,27 @@
-import computer from "../../../assets/img/computer.png";
+import { useEffect, useState } from "react";
+
+import * as cartService from "../../../services/cart-service";
 
 import "./style.css";
+import { OrderDTO, OrderItemDTO } from "../../../models/order";
+
+const item1: OrderItemDTO = new OrderItemDTO(
+  4,
+  1,
+  "The Lord of the Rings",
+  90.5,
+  "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/1-big.jpg"
+);
+
+const item2: OrderItemDTO = new OrderItemDTO(
+  5,
+  2,
+  "Smart TV",
+  2190.0,
+  "https://raw.githubusercontent.com/devsuperior/dscatalog-resources/master/backend/img/2-big.jpg"
+);
+
+// const cart: OrderDTO = new OrderDTO
 
 const cart = {
   items: [
@@ -24,6 +45,8 @@ const cart = {
 };
 
 const Cart = () => {
+  const [cart, setCart] = useState<OrderDTO>(cartService.getCart());
+
   return (
     <main>
       <section id="cart-container-section" className="dsc-container">
