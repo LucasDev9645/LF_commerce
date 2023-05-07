@@ -7,11 +7,21 @@ import { ProductDTO } from "../../../models/product";
 import * as productService from "../../../services/product-service";
 
 import "./styles.css";
+import { CategoryDTO } from "../../../models/category";
 
 const Catalog = () => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
 
+  const objTest: CategoryDTO = {
+    id: 4,
+    name: "Computador",
+  };
+
   useEffect(() => {
+    // localStorage.setItem("categoria", JSON.stringify(objTest));
+    const obj = JSON.parse(localStorage.getItem("categoria") || "{}");
+    console.log(obj);
+
     productService
       .findAll()
       .then((response) => setProducts(response.data.content))

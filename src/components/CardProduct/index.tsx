@@ -33,7 +33,7 @@ const CardProduct = ({ product }: Props) => {
           </div>
         </div>
         <div className="dsc-btn-page-container">
-          <ButtonPrimary name="Adicionar" />
+          <ButtonPrimary name="Comprar" />
           <Link to="/">
             <ButtonInverse name="Inicio" />
           </Link>
