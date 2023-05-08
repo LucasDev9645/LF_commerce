@@ -29,3 +29,24 @@ export const addProduct = (product: ProductDTO) => {
 export const clearCart = () => {
   cartRepository.clear();
 };
+
+export const increaseItem = (productId: number) => {
+  const cart = cartRepository.get();
+  const item = cart.items.find((x) => x.productId === productId);
+  if (item) {
+    item.quantity += 1;
+    cartRepository.save(cart);
+  }
+};
+
+export const decreaseItem = (productId: number) => {
+  const cart = cartRepository.get();
+  const item = cart.items.find((x) => x.productId === productId);
+  if (item) {
+    item.quantity -= 1;
+    if (item.quantity < 1) {
+      cart.items = cart.items.filter((x) => x.productId !== productId);
+    }
+    cartRepository.save(cart);
+  }
+};
