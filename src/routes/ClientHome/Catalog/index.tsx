@@ -8,19 +8,37 @@ import * as productService from "../../../services/product-service";
 
 import "./styles.css";
 
+type QueryParams = {
+  page: number;
+  name: string;
+};
+
 const Catalog = () => {
+  const [isLastPage, setIsLastPage] = useState(false);
   const [products, setProducts] = useState<ProductDTO[]>([]);
-  const [producName, setProductName] = useState("");
+  const [queryparam, setQueryParam] = useState<QueryParams>({
+    page: 0,
+    name: "",
+  });
 
   useEffect(() => {
     productService
-      .findPageRequest(0, producName)
-      .then((response) => setProducts(response.data.content))
+      .findPageRequest(queryparam.page, queryparam.name)
+      .then((response) => {
+        const nextPage = response.data.content;
+        setProducts(products.concat(nextPage));
+        setIsLastPage(response.data.last);
+      })
       .catch((error) => console.log("ERRO", error));
-  }, [producName]);
+  }, [queryparam]);
 
   const handleSearch = (searchText: string) => {
-    setProductName(searchText);
+    setProducts([]);
+    setQueryParam({ ...queryparam, page: 0, name: searchText });
+  };
+
+  const handleNextPageClick = () => {
+    setQueryParam({ ...queryparam, page: queryparam.page + 1 });
   };
 
   return (
@@ -32,7 +50,11 @@ const Catalog = () => {
             <CatalogCard key={product.id} product={product} />
           ))}
         </div>
-        <ButtonNextPage />
+        {!isLastPage && (
+          <div onClick={handleNextPageClick}>
+            <ButtonNextPage />
+          </div>
+        )}
       </section>
     </main>
   );
