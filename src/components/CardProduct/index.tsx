@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import CategoryProduct from "../CategoryProduct";
@@ -5,6 +6,7 @@ import ButtonPrimary from "../ButtonPrimary";
 import ButtonInverse from "../ButtonInverse";
 import { ProductDTO } from "../../models/product";
 import * as cartService from "../../services/cart-service";
+import { ContextCartCount } from "../../utils/context-cart";
 
 import "./styles.css";
 
@@ -14,9 +16,11 @@ type Props = {
 
 const CardProduct = ({ product }: Props) => {
   const navigate = useNavigate();
+  const { setContextCartCount } = useContext(ContextCartCount);
 
   const handleBuyClick = () => {
     cartService.addProduct(product);
+    setContextCartCount(cartService.getCart().items.length);
     navigate("/cart");
   };
 
