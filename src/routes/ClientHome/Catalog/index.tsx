@@ -7,31 +7,26 @@ import { ProductDTO } from "../../../models/product";
 import * as productService from "../../../services/product-service";
 
 import "./styles.css";
-import { CategoryDTO } from "../../../models/category";
 
 const Catalog = () => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
-
-  const objTest: CategoryDTO = {
-    id: 4,
-    name: "Computador",
-  };
+  const [producName, setProductName] = useState("");
 
   useEffect(() => {
-    // localStorage.setItem("categoria", JSON.stringify(objTest));
-    const obj = JSON.parse(localStorage.getItem("categoria") || "{}");
-    console.log(obj);
-
     productService
-      .findAll()
+      .findPageRequest(0, producName)
       .then((response) => setProducts(response.data.content))
       .catch((error) => console.log("ERRO", error));
-  }, []);
+  }, [producName]);
+
+  const handleSearch = (searchText: string) => {
+    setProductName(searchText);
+  };
 
   return (
     <main>
       <section id="catalog-section" className="dsc-container">
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
         <div className="dsc-catalog-cards dsc-mb20 dsc-mt20">
           {products.map((product) => (
             <CatalogCard key={product.id} product={product} />

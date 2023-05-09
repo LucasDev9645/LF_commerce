@@ -7,6 +7,11 @@
 .dsc-search-bar button,
 .dsc-search-bar input {
   border: 1px solid var(--dsc-color-card-border);
+  cursor: pointer;
+}
+
+.dsc-search-bar button:hover {
+  background-color: var(--dsc-color-bg-secondary);
 }
 
 .dsc-search-bar input {
