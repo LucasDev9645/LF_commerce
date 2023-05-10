@@ -4,6 +4,7 @@ import QueryString from "qs";
 import { CredentialsDTO } from "../models/auth";
 import { CLIENT_ID, CLIENT_SECRET } from "../utils/system";
 import { requestBackend } from "../utils/request";
+import * as acessTokenRepository from "../localstorage/access-token-repository";
 
 export const loginRequest = (loginData: CredentialsDTO) => {
   const headers = {
@@ -23,4 +24,16 @@ export const loginRequest = (loginData: CredentialsDTO) => {
     headers: headers,
   };
   return requestBackend(config);
+};
+
+export const logout = () => {
+  acessTokenRepository.remove();
+};
+
+export const saveAccessToken = (token: string) => {
+  acessTokenRepository.save(token);
+};
+
+export const getAccessToken = () => {
+  acessTokenRepository.get();
 };
