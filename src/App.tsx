@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import { history } from "./utils/history";
 
 import Catalog from "./routes/ClientHome/Catalog";
 import ProductDetails from "./routes/ProductDetails";
@@ -17,7 +19,7 @@ const App = () => {
     <ContextCartCount.Provider
       value={{ contextCartCount, setContextCartCount }}
     >
-      <BrowserRouter>
+      <HistoryRouter history={history}>
         <Routes>
           <Route path="/" element={<ClientHome />}>
             <Route index element={<Catalog />} />
@@ -34,7 +36,7 @@ const App = () => {
           </Route>
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </ContextCartCount.Provider>
   );
 };

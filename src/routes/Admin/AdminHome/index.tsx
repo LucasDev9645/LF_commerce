@@ -9,15 +9,10 @@ const AdminHome = () => {
   const [user, setUser] = useState<userDTO>();
 
   useEffect(() => {
-    userService
-      .findMe(2)
-      .then((response) => {
-        setUser(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log("Erro", error);
-      });
+    userService.findMe(2).then((response) => {
+      setUser(response.data);
+      console.log(response.data);
+    });
   }, []);
 
   return (
