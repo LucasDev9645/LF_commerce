@@ -1,5 +1,6 @@
 import homeIcon from "../../assets/img/home-svgrepo-com 1.svg";
 import stockIcon from "../../assets/img/stock-svgrepo-com 1.svg";
+import LoggedUser from "../LoggedUser";
 
 import "./styles.css";
 
@@ -20,10 +21,7 @@ const HeaderAdmin = () => {
                 <p className="dsc-menu-item-active">Produtos</p>
               </div>
             </div>
-            <div className="dsc-logged-user">
-              <p>Maria Silva</p>
-              <a href="#">Sair</a>
-            </div>
+            <LoggedUser />
           </div>
         </nav>
       </header>

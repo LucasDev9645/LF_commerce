@@ -5,6 +5,7 @@ import CartIcon from "../CartIcon";
 import adminIcon from "../../assets/img/engine.svg";
 import * as authService from "../../services/auth-service";
 import { ContextToken } from "../../utils/context-token";
+import LoggedUser from "../LoggedUser";
 
 import "./styles.css";
 
@@ -34,7 +35,7 @@ const HeaderClient = () => {
                 </div>
               </Link>
             </div>
-            <Link to="/login">Entrar</Link>
+            <LoggedUser />
           </div>
         </nav>
       </header>
