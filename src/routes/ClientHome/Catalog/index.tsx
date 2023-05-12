@@ -7,7 +7,6 @@ import { ProductDTO } from "../../../models/product";
 import * as productService from "../../../services/product-service";
 
 import "./styles.css";
-import { isAuthenticated } from "../../../services/auth-service";
 
 type QueryParams = {
   page: number;
@@ -23,7 +22,6 @@ const Catalog = () => {
   });
 
   useEffect(() => {
-    console.log("AUTENTICADO", isAuthenticated());
     productService
       .findPageRequest(queryparam.page, queryparam.name)
       .then((response) => {
