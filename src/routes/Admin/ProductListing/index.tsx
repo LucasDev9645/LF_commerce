@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import iconEdit from "../../../assets/img/pen 1.svg";
 import iconDelete from "../../../assets/img/trash 1.svg";
 
+import SearchBar from "../../../components/SearchBar";
+import ButtonNextPage from "../../../components/ButtonNextPage";
+
 import { hasAnyRoles } from "../../../services/auth-service";
 import * as productService from "../../../services/product-service";
 import { ProductDTO } from "../../../models/product";
 
 import "./styles.css";
-import SearchBar from "../../../components/SearchBar";
 
 type QueryParams = {
   page: number;
@@ -38,6 +40,10 @@ const ProductListing = () => {
   const handleSearch = (searchText: string) => {
     setProducts([]);
     setQueryParam({ ...queryparam, page: 0, name: searchText });
+  };
+
+  const handleNextPageClick = () => {
+    setQueryParam({ ...queryparam, page: queryparam.page + 1 });
   };
 
   return (
@@ -91,7 +97,11 @@ const ProductListing = () => {
             ))}
           </tbody>
         </table>
-        <div className="dsc-btn-next-page">Carregar mais</div>
+        {!isLastPage && (
+          <div onClick={handleNextPageClick}>
+            <ButtonNextPage />
+          </div>
+        )}
       </section>
     </main>
   );
