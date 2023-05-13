@@ -5,13 +5,14 @@ import iconDelete from "../../../assets/img/trash 1.svg";
 
 import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
+import DialogInfo from "../../../components/DialogInfo";
+import DialogConfirmation from "../../../components/DialogConfirmation";
 
 import { hasAnyRoles } from "../../../services/auth-service";
 import * as productService from "../../../services/product-service";
 import { ProductDTO } from "../../../models/product";
 
 import "./styles.css";
-import DialogInfo from "../../../components/DialogInfo";
 
 type QueryParams = {
   page: number;
@@ -22,6 +23,11 @@ const ProductListing = () => {
   const [dialogInfoData, setDialogInfoData] = useState({
     visible: false,
     message: "Operação com Sucesso!",
+  });
+
+  const [dialogConfirmationData, setDialogConfirmationData] = useState({
+    visible: false,
+    message: "Tem Certeza que Deseja Deletar o Produto!",
   });
 
   const [queryparam, setQueryParam] = useState<QueryParams>({
@@ -57,7 +63,12 @@ const ProductListing = () => {
   };
 
   const handleDeleteClick = () => {
-    setDialogInfoData({ ...dialogInfoData, visible: true });
+    setDialogConfirmationData({ ...dialogConfirmationData, visible: true });
+  };
+
+  const handleDialogConfirmationAnswer = (answer: boolean) => {
+    console.log("Resposta", answer);
+    setDialogConfirmationData({ ...dialogConfirmationData, visible: false });
   };
 
   return (
@@ -122,6 +133,13 @@ const ProductListing = () => {
         <DialogInfo
           message={dialogInfoData.message}
           onDialogClose={handleDialogInfoClose}
+        />
+      )}
+
+      {dialogConfirmationData.visible && (
+        <DialogConfirmation
+          message={dialogConfirmationData.message}
+          onDialogAnswer={handleDialogConfirmationAnswer}
         />
       )}
     </main>
