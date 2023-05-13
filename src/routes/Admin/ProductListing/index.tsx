@@ -11,6 +11,7 @@ import * as productService from "../../../services/product-service";
 import { ProductDTO } from "../../../models/product";
 
 import "./styles.css";
+import DialogInfo from "../../../components/DialogInfo";
 
 type QueryParams = {
   page: number;
@@ -103,6 +104,7 @@ const ProductListing = () => {
           </div>
         )}
       </section>
+      <DialogInfo />
     </main>
   );
 };
