@@ -19,6 +19,11 @@ type QueryParams = {
 };
 
 const ProductListing = () => {
+  const [dialogInfoData, setDialogInfoData] = useState({
+    visible: false,
+    message: "Operação com Sucesso!",
+  });
+
   const [queryparam, setQueryParam] = useState<QueryParams>({
     page: 0,
     name: "",
@@ -45,6 +50,14 @@ const ProductListing = () => {
 
   const handleNextPageClick = () => {
     setQueryParam({ ...queryparam, page: queryparam.page + 1 });
+  };
+
+  const handleDialogInfoClose = () => {
+    setDialogInfoData({ ...dialogInfoData, visible: false });
+  };
+
+  const handleDeleteClick = () => {
+    setDialogInfoData({ ...dialogInfoData, visible: true });
   };
 
   return (
@@ -92,6 +105,7 @@ const ProductListing = () => {
                     className="dsc-product-listing-btn"
                     src={iconDelete}
                     alt="Deletar"
+                    onClick={handleDeleteClick}
                   />
                 </td>
               </tr>
@@ -104,7 +118,12 @@ const ProductListing = () => {
           </div>
         )}
       </section>
-      <DialogInfo />
+      {dialogInfoData.visible && (
+        <DialogInfo
+          message={dialogInfoData.message}
+          onDialogClose={handleDialogInfoClose}
+        />
+      )}
     </main>
   );
 };
