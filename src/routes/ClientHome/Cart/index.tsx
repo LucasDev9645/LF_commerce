@@ -79,9 +79,8 @@ const Cart = () => {
         )}
 
         <div className="dsc-btn-page-container">
-          <div className="dsc-btn dsc-btn-blue">Finalizar pedido</div>
           <Link to="/catalog">
-            <div className="dsc-btn dsc-btn-white">Continuar comprando</div>
+            <div className="dsc-btn dsc-btn-blue">Continuar comprando</div>
           </Link>
           <div onClick={handleClearClick} className="dsc-btn dsc-btn-white">
             Limpar carrinho

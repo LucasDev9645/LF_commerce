@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
-import { history } from "./utils/history";
 
 import Catalog from "./routes/ClientHome/Catalog";
 import ProductDetails from "./routes/ProductDetails";
 import ClientHome from "./routes/ClientHome";
 import Cart from "./routes/ClientHome/Cart";
-import { ContextCartCount } from "./utils/context-cart";
 import Login from "./routes/ClientHome/Login";
 import Admin from "./routes/Admin";
 import AdminHome from "./routes/Admin/AdminHome";
+import ProductListing from "./routes/Admin/ProductListing";
+import ProductForm from "./routes/Admin/ProductForm";
+
 import { PrivateRoute } from "./components/PrivateRoute";
 import { AccessTokenPayloadDTO } from "./models/auth";
 import { ContextToken } from "./utils/context-token";
+import { ContextCartCount } from "./utils/context-cart";
+import { history } from "./utils/history";
 import * as authService from "./services/auth-service";
 import * as cartService from "./services/cart-service";
 
@@ -58,7 +61,10 @@ const App = () => {
                 </PrivateRoute>
               }
             >
-              <Route index element={<AdminHome />} />
+              <Route index element={<Navigate to="/admin/home" />} />
+              <Route path="home" element={<AdminHome />} />
+              <Route path="products" element={<ProductListing />} />
+              <Route path="products/:productId" element={<ProductForm />} />
             </Route>
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
