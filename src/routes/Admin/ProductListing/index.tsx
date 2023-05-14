@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import iconEdit from "../../../assets/img/pen 1.svg";
 import iconDelete from "../../../assets/img/trash 1.svg";
 
 import SearchBar from "../../../components/SearchBar";
 import ButtonNextPage from "../../../components/ButtonNextPage";
+import ButtonInverse from "../../../components/ButtonInverse";
 import DialogInfo from "../../../components/DialogInfo";
 import DialogConfirmation from "../../../components/DialogConfirmation";
 
-import { hasAnyRoles } from "../../../services/auth-service";
 import * as productService from "../../../services/product-service";
 import { ProductDTO } from "../../../models/product";
 
@@ -20,6 +21,8 @@ type QueryParams = {
 };
 
 const ProductListing = () => {
+  const navigate = useNavigate();
+
   const [dialogInfoData, setDialogInfoData] = useState({
     visible: false,
     message: "Operação com Sucesso!",
@@ -48,6 +51,10 @@ const ProductListing = () => {
       })
       .catch((error) => console.log("ERRO", error));
   }, [queryparam]);
+
+  const handleNewProductClick = () => {
+    navigate("/admin/products/create");
+  };
 
   const handleSearch = (searchText: string) => {
     setProducts([]);
@@ -89,7 +96,9 @@ const ProductListing = () => {
         <h2 className="dsc-section-title dsc-mb20">Cadastro de produtos</h2>
 
         <div className="dsc-btn-page-container dsc-mb20">
-          <div className="dsc-btn dsc-btn-white">Novo</div>
+          <div onClick={handleNewProductClick}>
+            <ButtonInverse name="Novo" />
+          </div>
         </div>
         <SearchBar onSearch={handleSearch} />
         <table className="dsc-table dsc-mb20 dsc-mt20">
