@@ -27,6 +27,7 @@ const ProductListing = () => {
 
   const [dialogConfirmationData, setDialogConfirmationData] = useState({
     visible: false,
+    id: 0,
     message: "Tem Certeza que Deseja Deletar o Produto!",
   });
 
@@ -38,7 +39,6 @@ const ProductListing = () => {
   const [products, setProducts] = useState<ProductDTO[]>([]);
 
   useEffect(() => {
-    console.log("Teste", hasAnyRoles([]));
     productService
       .findPageRequest(queryparam.page, queryparam.name)
       .then((response) => {
@@ -62,12 +62,24 @@ const ProductListing = () => {
     setDialogInfoData({ ...dialogInfoData, visible: false });
   };
 
-  const handleDeleteClick = () => {
-    setDialogConfirmationData({ ...dialogConfirmationData, visible: true });
+  const handleDeleteClick = (productId: number) => {
+    setDialogConfirmationData({
+      ...dialogConfirmationData,
+      id: productId,
+      visible: true,
+    });
   };
 
-  const handleDialogConfirmationAnswer = (answer: boolean) => {
-    console.log("Resposta", answer);
+  const handleDialogConfirmationAnswer = (
+    answer: boolean,
+    productId: number
+  ) => {
+    if (answer) {
+      productService.deleteById(productId).then(() => {
+        setProducts([]);
+        setQueryParam({ ...queryparam, page: 0 });
+      });
+    }
     setDialogConfirmationData({ ...dialogConfirmationData, visible: false });
   };
 
@@ -116,7 +128,7 @@ const ProductListing = () => {
                     className="dsc-product-listing-btn"
                     src={iconDelete}
                     alt="Deletar"
-                    onClick={handleDeleteClick}
+                    onClick={() => handleDeleteClick(product.id)}
                   />
                 </td>
               </tr>
@@ -138,6 +150,7 @@ const ProductListing = () => {
 
       {dialogConfirmationData.visible && (
         <DialogConfirmation
+          id={dialogConfirmationData.id}
           message={dialogConfirmationData.message}
           onDialogAnswer={handleDialogConfirmationAnswer}
         />

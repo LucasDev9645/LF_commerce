@@ -1,6 +1,5 @@
-import axios, { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig } from "axios";
 
-import { BASE_URL } from "../utils/system";
 import { requestBackend } from "../utils/request";
 
 export const findPageRequest = (
@@ -25,4 +24,13 @@ export const findPageRequest = (
 
 export const findById = (id: number) => {
   return requestBackend({ url: `/products/${id}` });
+};
+
+export const deleteById = (id: number) => {
+  const config: AxiosRequestConfig = {
+    method: "DELETE",
+    url: `/products/${id}`,
+    withCredentials: true,
+  };
+  return requestBackend(config);
 };
