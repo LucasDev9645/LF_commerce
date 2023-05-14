@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { CredentialsDTO } from "../../../models/auth";
+import FormInput from "../../../components/FormInput";
 import * as authService from "../../../services/auth-service";
 import { ContextToken } from "../../../utils/context-token";
 
@@ -12,15 +13,36 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState<CredentialsDTO>({
-    username: "",
-    password: "",
+  const [formData, setFormData] = useState<any>({
+    username: {
+      value: "",
+      id: "username",
+      name: "username",
+      type: "text",
+      placeholder: "Email",
+      validation: function (value: string) {
+        return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+          value.toLowerCase()
+        );
+      },
+      message: "Favor informar um e-mail válido",
+    },
+    password: {
+      value: "",
+      id: "password",
+      name: "password",
+      type: "password",
+      placeholder: "Senha",
+    },
   });
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     authService
-      .loginRequest(formData)
+      .loginRequest({
+        username: formData.username.value,
+        password: formData.password.value,
+      })
       .then((response) => {
         authService.saveAccessToken(response.data.access_token);
         setContextTokenPayload(authService.getAccessTokenPayload());
@@ -32,7 +54,7 @@ const Login = () => {
   const handleInputChange = (e: any) => {
     const value = e.target.value;
     const name = e.target.name;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: { ...formData[name], value: value } });
   };
 
   return (
@@ -43,23 +65,17 @@ const Login = () => {
             <h2>Login</h2>
             <div className="dsc-form-controls-container">
               <div>
-                <input
-                  name="username"
-                  value={formData.username}
+                <FormInput
+                  {...formData.username}
                   className="dsc-form-control"
-                  type="text"
-                  placeholder="Email"
                   onChange={handleInputChange}
                 />
                 <div className="dsc-form-error"></div>
               </div>
               <div>
-                <input
-                  name="password"
-                  value={formData.password}
+                <FormInput
+                  {...formData.password}
                   className="dsc-form-control"
-                  type="password"
-                  placeholder="Senha"
                   onChange={handleInputChange}
                 />
               </div>
