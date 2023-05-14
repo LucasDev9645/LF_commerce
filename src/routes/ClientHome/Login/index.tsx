@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CredentialsDTO } from "../../../models/auth";
 import FormInput from "../../../components/FormInput";
 import * as authService from "../../../services/auth-service";
+import * as forms from "../../../utils/forms";
 import { ContextToken } from "../../../utils/context-token";
 
 import "./style.css";
@@ -52,9 +53,7 @@ const Login = () => {
   };
 
   const handleInputChange = (e: any) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setFormData({ ...formData, [name]: { ...formData[name], value: value } });
+    setFormData(forms.update(formData, e.target.name, e.target.value));
   };
 
   return (
