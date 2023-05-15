@@ -21,7 +21,7 @@ const ProductForm = () => {
       placeholder: "Nome",
     },
     price: {
-      value: 200,
+      value: "",
       id: "price",
       name: "price",
       type: "number",
@@ -41,8 +41,6 @@ const ProductForm = () => {
   });
 
   useEffect(() => {
-    const obj = forms.validate(formData, "price");
-    console.log(obj);
     if (isEditing) {
       productService.findById(Number(params.productId)).then((response) => {
         setFormData(forms.updateAll(formData, response.data));
@@ -51,7 +49,9 @@ const ProductForm = () => {
   }, []);
 
   const handleInputChange = (e: any) => {
-    setFormData(forms.update(formData, e.target.name, e.target.value));
+    const dataUpdated = forms.update(formData, e.target.name, e.target.value);
+    const dataValidated = forms.validate(dataUpdated, e.target.name);
+    setFormData(dataValidated);
   };
 
   return (
@@ -67,6 +67,7 @@ const ProductForm = () => {
                   className="dsc-form-control"
                   onChange={handleInputChange}
                 />
+                <div className="dsc-form-error">{formData.name.message}</div>
               </div>
               <div>
                 <FormInput
@@ -74,6 +75,7 @@ const ProductForm = () => {
                   className="dsc-form-control"
                   onChange={handleInputChange}
                 />
+                <div className="dsc-form-error">{formData.price.message}</div>
               </div>
               <div>
                 <FormInput

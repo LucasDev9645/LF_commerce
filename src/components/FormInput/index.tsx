@@ -1,7 +1,7 @@
 const FormInput = (props: any) => {
-  const { validation, ...inputProps } = props;
+  const { validation, invalid, onTurnDirty, ...inputProps } = props;
 
-  return <input {...inputProps} />;
+  return <input {...inputProps} data-invalid={invalid} />;
 };
 
 export default FormInput;
