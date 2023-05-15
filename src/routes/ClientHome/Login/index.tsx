@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { CredentialsDTO } from "../../../models/auth";
 import FormInput from "../../../components/FormInput";
 import * as authService from "../../../services/auth-service";
 import * as forms from "../../../utils/forms";
@@ -49,9 +48,13 @@ const Login = () => {
       .catch((error) => console.log("Erro", error));
   };
 
-  const handleInputChange = (e: any) => {
-    setFormData(forms.update(formData, e.target.name, e.target.value));
-  };
+  const handleInputChange = (e: any) =>
+    setFormData(
+      forms.updateAndValidate(formData, e.target.name, e.target.value)
+    );
+
+  const handleTurnDirty = (name: string) =>
+    setFormData(forms.dirtyAndValidate(formData, name));
 
   return (
     <main>
@@ -64,6 +67,7 @@ const Login = () => {
                 <FormInput
                   {...formData.username}
                   className="dsc-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
                 <div className="dsc-form-error"></div>
@@ -72,6 +76,7 @@ const Login = () => {
                 <FormInput
                   {...formData.password}
                   className="dsc-form-control"
+                  onTurnDirty={handleTurnDirty}
                   onChange={handleInputChange}
                 />
               </div>
