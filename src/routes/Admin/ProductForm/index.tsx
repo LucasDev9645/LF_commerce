@@ -19,6 +19,8 @@ const ProductForm = () => {
       name: "name",
       type: "text",
       placeholder: "Nome",
+      validation: (value: string) => /^.{3,80}$/.test(value),
+      message: "Favor informar um nome de 3 a 80 caracteres",
     },
     price: {
       value: "",
