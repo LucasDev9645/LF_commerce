@@ -77,6 +77,10 @@ const ProductListing = () => {
     });
   };
 
+  const handleUpdateClick = (productId: number) => {
+    navigate(`/admin/products/${productId}`);
+  };
+
   const handleDialogConfirmationAnswer = (
     answer: boolean,
     productId: number
@@ -127,6 +131,7 @@ const ProductListing = () => {
                 <td className="dsc-txt-left">{product.name}</td>
                 <td>
                   <img
+                    onClick={() => handleUpdateClick(product.id)}
                     className="dsc-product-listing-btn"
                     src={iconEdit}
                     alt="Editar"
