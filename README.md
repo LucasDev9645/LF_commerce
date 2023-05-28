@@ -4,7 +4,7 @@
 
 # Sobre o projeto
 
-LFCommerce é uma aplicação full stack web e mobile que esta sendo feito alguns ajustes para ser concluída.
+LFCommerce é uma aplicação full stack web e mobile que vem sendo construida em um bootcamp, e esta sendo feito alguns ajustes para ser concluída, nesta aplicação venho aprendendo e colocando em prática bastante coisas ultilizei biblioteca, efetuei validação de formulario a mão visando aprender mais sobre o react, sistema de rotas autorizadas, filtragem de produtos e requisição a API, sistema de carrinho ultilizando local storage e outras funcionalidades.
 
 A aplição e um e-commerce de produtos, que contém sistema de login, área administrativa, edição, remoção, filtragem de produtos entre outras funcionalidades.
 
@@ -25,10 +25,11 @@ A aplição e um e-commerce de produtos, que contém sistema de login, área adm
 - Maven
 
 ## Front end
-- HTML
-- Typescript
-- CSS
 - React
+- React-router-dom
+- Typescript
+- Css
+- Figma
 
 # Como executar o projeto
 
